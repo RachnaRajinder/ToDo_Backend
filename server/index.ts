@@ -26,11 +26,17 @@ app.get('/', (req: Request, res: Response) => {
     })
     const openDBConnection = (): Pool => {
         const pool = new Pool({
-            user: 'postgres',
+         /*   user: 'root',
             host: 'localhost',
             database: 'todo',
             password: 'vishnu@666',
+            port: 5432,*/
+            user: 'root',
+            host: 'dpg-cgat2402qv267udp53ig-a.oregon-postgres.render.com',
+            database: 'todo_eeya',
+            password:'ULTWdv0VJGHiwhsXNQkKtrixUjgRvOS9',
             port: 5432,
+            ssl : true
         })
         return pool
     }
@@ -49,7 +55,7 @@ app.get('/', (req: Request, res: Response) => {
             res.status(200).json({id: result.rows[0].id})
         })
     });
-    app.delete('/delete/:id', async(req: Request, res: Response){
+    app.delete('/delete/:id', async(req: Request, res: Response)=>{
         const pool = openDBConnection()
         const id = parseInt(req.params.id)
         pool.query('delete from task where id = $1', [id],
